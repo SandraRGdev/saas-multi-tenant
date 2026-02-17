@@ -1,19 +1,263 @@
 {
+  "$schema": "./.claude/schema.json",
   "project": {
     "name": "SaaS Multi-Tenant",
-    "description": "Plataforma SaaS multi-tenant adaptable a múltiples verticales",
-    "techStack": {
-      "database": "Neon (PostgreSQL with RLS)",
-      "deployment": "Dokploy",
-      "payments": "Stripe",
-      "framework": "TBD"
+    "description": "Plataforma SaaS multi-tenant adaptable a múltiples verticales con arquitectura base común",
+    "version": "0.1.0-alpha",
+    "author": "SaaS Team",
+    "license": "MIT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/saas-multi-tenant",
+    "branch_main": "main",
+    "branch_develop": "develop"
+  },
+  "techStack": {
+    "database": {
+      "provider": "Neon",
+      "type": "PostgreSQL",
+      "version": "16",
+      "features": ["RLS", "Connection Pooling", "Automatic Backups"]
+    },
+    "deployment": {
+      "platform": "Dokploy",
+      "type": "Self-hosted",
+      "container": "Docker"
+    },
+    "payments": {
+      "provider": "Stripe",
+      "features": ["Subscriptions", "Invoices", "Webhooks"]
+    },
+    "framework": {
+      "frontend": "TBD",
+      "backend": "TBD",
+      "monorepo": "Turborepo"
+    },
+    "languages": {
+      "primary": "TypeScript",
+      "secondary": ["SQL", "Shell", "YAML"]
     }
   },
-  "verticals": ["ecommerce", "saas_services", "real_estate", "restaurants"],
+  "verticals": [
+    {
+      "id": "ecommerce",
+      "name": "eCommerce",
+      "price": 19,
+      "features": ["products", "categories", "inventory", "cart", "checkout", "orders", "shipping", "coupons", "taxes"]
+    },
+    {
+      "id": "saas_services",
+      "name": "SaaS Servicios",
+      "price": 20,
+      "features": ["services", "bookings", "calendar", "recurring_billing", "customer_management"]
+    },
+    {
+      "id": "real_estate",
+      "name": "Inmobiliario",
+      "price": 25,
+      "features": ["properties", "filters", "agents", "visit_bookings", "documents", "digital_signature"]
+    },
+    {
+      "id": "restaurants",
+      "name": "Restaurante",
+      "price": 15,
+      "features": ["menu", "tables", "reservations", "internal_orders", "qr_menu", "online_orders"]
+    }
+  ],
   "features": {
-    "multiTenant": true,
-    "rls": true,
-    "stripe": true,
-    "oauth": false
+    "core": {
+      "multiTenant": true,
+      "rls": true,
+      "stripe": true,
+      "oauth": false
+    },
+    "enterprise": {
+      "sso": false,
+      "api_public": false,
+      "webhooks": false,
+      "logs_export": false
+    }
+  },
+  "plans": {
+    "free": {
+      "price": 0,
+      "users": 3,
+      "records": 100,
+      "features": ["basic"]
+    },
+    "pro": {
+      "price": 29,
+      "users": 10,
+      "records": 1000,
+      "features": ["basic", "modules", "analytics"]
+    },
+    "business": {
+      "price": 99,
+      "users": 50,
+      "records": 10000,
+      "features": ["basic", "modules", "analytics", "priority_support"]
+    },
+    "enterprise": {
+      "price": "custom",
+      "users": -1,
+      "records": -1,
+      "features": ["basic", "modules", "analytics", "priority_support", "sso", "api", "webhooks"]
+    }
+  },
+  "paths": {
+    "root": "/Users/sandra/Documents/CodeIA/sesion 19 - Saas multitenant",
+    "apps": "./apps",
+    "packages": "./packages",
+    "verticals": "./verticals",
+    "docs": "./docs",
+    "agents": "./.claude/agents",
+    "config": "./.claude"
+  },
+  "agents": {
+    "manager": {
+      "name": "SaaS-Orchestrator",
+      "file": "00-manager.md",
+      "model": "claude-opus-4-6",
+      "color": "#FF6B6B",
+      "emoji": "🎯",
+      "command": "/manager",
+      "description": "Agente orquestador principal del proyecto"
+    },
+    "planner": {
+      "name": "SaaS-Planner",
+      "file": "01-planner.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#4ECDC4",
+      "emoji": "📋",
+      "command": "/planner",
+      "description": "Planificación de sprints y tareas"
+    },
+    "docs": {
+      "name": "SaaS-Docs",
+      "file": "02-docs.md",
+      "model": "claude-haiku-4-5",
+      "color": "#45B7D1",
+      "emoji": "📚",
+      "command": "/docs",
+      "description": "Documentación técnica y de usuario"
+    },
+    "dbadmin": {
+      "name": "SaaS-DBAdmin",
+      "file": "03-dbadmin.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#FFA07A",
+      "emoji": "🗄️",
+      "command": "/db",
+      "description": "Administración de base de datos Neon y schemas"
+    },
+    "api": {
+      "name": "SaaS-API",
+      "file": "04-api.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#98D8C8",
+      "emoji": "🔌",
+      "command": "/api",
+      "description": "Diseño e implementación de API y contratos"
+    },
+    "uxui": {
+      "name": "SaaS-UXUI",
+      "file": "05-uxui.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#DDA0DD",
+      "emoji": "🎨",
+      "command": "/ui",
+      "description": "Diseño de experiencia de usuario e interfaz"
+    },
+    "security": {
+      "name": "SaaS-Security",
+      "file": "06-security.md",
+      "model": "claude-opus-4-6",
+      "color": "#FF6347",
+      "emoji": "🔒",
+      "command": "/security",
+      "description": "Seguridad y compliance del proyecto"
+    },
+    "performance": {
+      "name": "SaaS-Performance",
+      "file": "07-performance.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#FFD700",
+      "emoji": "⚡",
+      "command": "/perf",
+      "description": "Optimización de rendimiento"
+    },
+    "testing": {
+      "name": "SaaS-Testing",
+      "file": "08-testing.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#87CEEB",
+      "emoji": "🧪",
+      "command": "/test",
+      "description": "Testing con usuarios sintéticos y QA"
+    },
+    "deploy": {
+      "name": "SaaS-Deploy",
+      "file": "09-deploy.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#90EE90",
+      "emoji": "🚀",
+      "command": "/deploy",
+      "description": "Despliegue y operaciones en Dokploy"
+    },
+    "gitops": {
+      "name": "SaaS-GitOps",
+      "file": "10-gitops.md",
+      "model": "claude-sonnet-4-5",
+      "color": "#F0E68C",
+      "emoji": "🌿",
+      "command": "/git",
+      "description": "Gestión de ramas y repositorio Git"
+    }
+  },
+  "mcps": {
+    "local": {
+      "neon-db": {
+        "description": "Conexión a Neon PostgreSQL",
+        "capabilities": ["query", "schema", "migrate", "backup"]
+      },
+      "dokploy": {
+        "description": "Gestión de despliegues Dokploy",
+        "capabilities": ["deploy", "logs", "config", "health"]
+      },
+      "stripe-events": {
+        "description": "Webhooks de Stripe",
+        "capabilities": ["events", "webhooks"]
+      }
+    },
+    "global": {
+      "file-system": "Operaciones de archivo",
+      "git-operations": "Operaciones Git",
+      "web-reader": "Lectura de documentación web",
+      "4.5v-mcp": "Análisis de imágenes"
+    }
+  },
+  "sprint": {
+    "current": 0,
+    "version": "0.1.0-alpha",
+    "status": "planning",
+    "branch": "sprint/0-foundation",
+    "goals": [
+      "Crear estructura del monorepo",
+      "Configurar ESLint, Prettier, TypeScript",
+      "Configurar Neon database con RLS base",
+      "Setup Dokploy para despliegue",
+      "Configurar CI/CD base"
+    ]
+  },
+  "environment": {
+    "node_version": "20",
+    "package_manager": "npm",
+    "typescript_version": "5.3"
+  },
+  "conventions": {
+    "commits": "conventional",
+    "branching": "feature/*, bugfix/*, hotfix/*, sprint/*",
+    "versioning": "semver"
   }
 }
