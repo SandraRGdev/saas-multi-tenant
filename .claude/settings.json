@@ -1,0 +1,19 @@
+{
+  "project": {
+    "name": "SaaS Multi-Tenant",
+    "description": "Plataforma SaaS multi-tenant adaptable a múltiples verticales",
+    "techStack": {
+      "database": "Neon (PostgreSQL with RLS)",
+      "deployment": "Dokploy",
+      "payments": "Stripe",
+      "framework": "TBD"
+    }
+  },
+  "verticals": ["ecommerce", "saas_services", "real_estate", "restaurants"],
+  "features": {
+    "multiTenant": true,
+    "rls": true,
+    "stripe": true,
+    "oauth": false
+  }
+}

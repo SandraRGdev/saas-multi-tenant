@@ -1,0 +1,9 @@
+{
+  "tenants": [],
+  "users": [],
+  "roles": ["Owner", "Admin", "Staff", "Client"],
+  "subscriptions": {
+    "plans": ["Free", "Pro", "Business", "Enterprise"],
+    "intervals": ["monthly", "annual"]
+  }
+}
